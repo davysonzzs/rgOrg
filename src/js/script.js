@@ -1,3 +1,6 @@
+const { createClient } = supabase
+const supabaseCliente = createClient("https://jdznsnyutvdlygtvpmmr.supabase.co" , "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impkem5zbnl1dHZkbHlndHZwbW1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyOTUxNDgsImV4cCI6MjEwMzg3MTE0OH0.LzBB-9Sqgvz8qL530aETtaCNcU-ytHGWv71l1sw89bQ")
+
 // ===== NAVBAR EFFECTS =====
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.querySelector('.navbar-custom');
@@ -72,7 +75,7 @@ revealElements.forEach(el => {
 // ===== FORM SUBMISSION =====
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const button = this.querySelector('button');
@@ -80,8 +83,21 @@ if (contactForm) {
         
         button.textContent = 'Enviando...';
         button.disabled = true;
-        
-        // configurar envio dps
+
+        const formDados = new FormData(contactForm)
+        const nome = formDados.get("nome")
+        const msg = formDados.get("msg")
+
+        const postMsg = await supabaseCliente
+        .from("mensagens")
+        .insert({
+            nome,
+            msg
+        })
+        if(postMsg){
+            button.textContent = "enviado"
+            button.disabled = false
+        }
     });
 }
 
