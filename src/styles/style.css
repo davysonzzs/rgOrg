@@ -167,6 +167,10 @@ body {
     justify-content: center;
 }
 
+.work-image img{
+    width: 100%;
+}
+
 .work-card {
     background: var(--gray-dark);
     border: 2px solid var(--primary);
@@ -468,6 +472,11 @@ body {
     .contact-info {
         margin-bottom: 2rem;
     }
+
+    .work-image img{
+        width: 100%;
+        height: 200px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -493,6 +502,10 @@ body {
 
     .btn-primary {
         padding: 0.6rem 1.5rem;
+        width: 100%;
+    }
+    .work-image img{
+        height: 150px;
         width: 100%;
     }
 }
